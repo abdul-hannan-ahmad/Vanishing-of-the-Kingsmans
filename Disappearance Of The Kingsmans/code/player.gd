@@ -11,14 +11,15 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 
 func _ready() -> void:
+	# This hides the mouse.
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("exit_game"):
+	if event.is_action_pressed("exit_game"):	# exit_game is mapped to the Escape key
 		get_tree().quit()
 		
-	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:	# This means that if the mouse is hidden.
 		handle_rotations(event)
 
 
@@ -46,6 +47,7 @@ func handle_movement(delta: float) -> void:
 	
 	
 func handle_rotations(event: InputEvent) -> void:
+	# This handles the rotations of the player.
 	if event is InputEventMouseMotion:
 		camera_controller.rotate_y(-event.relative.x * MOUSE_SENSITIVITY)
 		camera.rotate_x(-event.relative.y * MOUSE_SENSITIVITY)
