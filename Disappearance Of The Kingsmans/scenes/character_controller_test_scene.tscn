@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://daklncdlqlhfs"]
+
+[ext_resource type="PackedScene" uid="uid://vpqckejuales" path="res://scenes/player.tscn" id="1_1ck0b"]
+[ext_resource type="Material" uid="uid://cn1gsy15bkaff" path="res://Prototype Assets/materials/grid.tres" id="1_yr6jq"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xagqt"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_gij0y"]
+sky_material = SubResource("ProceduralSkyMaterial_xagqt")
+
+[sub_resource type="Environment" id="Environment_3fb5o"]
+background_mode = 2
+sky = SubResource("Sky_gij0y")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_r72ha"]
+material = ExtResource("1_yr6jq")
+size = Vector3(100, 1, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yk5cu"]
+size = Vector3(100, 1, 100)
+
+[node name="CharacterControllerTestScene" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3fb5o")
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("BoxMesh_r72ha")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_yk5cu")
+
+[node name="Player" parent="." instance=ExtResource("1_1ck0b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.51999, 0)
